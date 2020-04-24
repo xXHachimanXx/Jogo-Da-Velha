@@ -2,18 +2,17 @@ import React from "react";
 import ReactDOM from 'react-dom';
 import "./css/style.css";
 
-class Square extends React.Component {
+function Square(props) {
 
-  render() {
-    return (
-      <button 
-        className="square" 
-        onClick={ () => this.props.onClick() }  
-      >
-        {this.props.value}
-      </button>
-    );
-  }
+  return (
+    <button
+      className="square"
+      onClick={props.onClick}
+    >
+      {props.value}
+    </button>
+  );
+
 }
 
 class Board extends React.Component {
@@ -26,16 +25,16 @@ class Board extends React.Component {
   }
 
   renderSquare(i) {
-    return <Square 
+    return <Square
       value={this.state.squares[i]}
-      onClick={ () => this.handleClick(i) }
+      onClick={() => this.handleClick(i)}
     />;
   }
 
   handleClick(i) {
     const squares = this.state.squares.slice(); // slice cria uma cópia dos arrays
     squares[i] = 'X';
-    this.setState({squares: squares}); // Setar novo valor para vetor de quadrados
+    this.setState({ squares: squares }); // Setar novo valor para vetor de quadrados
   }
 
   render() {
