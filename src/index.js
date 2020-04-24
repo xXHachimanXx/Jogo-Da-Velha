@@ -21,6 +21,7 @@ class Board extends React.Component {
     super(props);
     this.state = {
       squares: Array(9).fill(), // Array com todas as posições do tabuleiro
+      xIsNext: true,
     }
   }
 
@@ -33,12 +34,13 @@ class Board extends React.Component {
 
   handleClick(i) {
     const squares = this.state.squares.slice(); // slice cria uma cópia dos arrays
-    squares[i] = 'X';
-    this.setState({ squares: squares }); // Setar novo valor para vetor de quadrados
+    squares[i] = this.state.xIsNext? 'X' : 'O';
+
+    this.setState({ squares: squares, xIsNext: !this.state.xIsNext }); // Setar novo valor para vetor de quadrados
   }
 
   render() {
-    const status = 'Next player: X';
+    const status = 'Next player: ' + (this.state.xIsNext? 'X' : 'O');
 
     return (
       <div>
