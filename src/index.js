@@ -4,29 +4,38 @@ import "./css/style.css";
 
 class Square extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      value: null,
-    };
-  }
-
   render() {
     return (
       <button 
         className="square" 
-        onClick={() => this.setState({ value: 'X' }) } 
+        onClick={ () => this.props.onClick() }  
       >
-        {this.state.value}
+        {this.props.value}
       </button>
     );
   }
 }
 
 class Board extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      squares: Array(9).fill(), // Array com todas as posições do tabuleiro
+    }
+  }
+
   renderSquare(i) {
-    return <Square value={i}/>;
+    return <Square 
+      value={this.state.squares[i]}
+      onClick={ () => this.handleClick(i) }
+    />;
+  }
+
+  handleClick(i) {
+    const squares = this.state.squares.slice(); // slice cria uma cópia dos arrays
+    squares[i] = 'X';
+    this.setState({squares: squares}); // Setar novo valor para vetor de quadrados
   }
 
   render() {
